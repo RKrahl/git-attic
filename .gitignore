@@ -1,0 +1,6 @@
+/.env
+/.version
+/MANIFEST
+/build/
+/dist/
+/$distname/__init__.py
