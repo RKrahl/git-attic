@@ -1,5 +1,5 @@
 %bcond_with tests
-%global distname $distname
+%global distname git-attic
 
 Name:		python3-%{distname}
 Version:	$version

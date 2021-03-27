@@ -6,17 +6,17 @@
 # full list see the documentation:
 # http://www.sphinx-doc.org/en/master/config
 
-import $distname
+import git-attic
 
 
 # -- Project information -----------------------------------------------------
 
-project = '$distname'
+project = 'git-attic'
 copyright = '2020, Rolf Krahl'
 author = 'Rolf Krahl'
 
 # The full version, including alpha/beta/rc tags
-release = $distname.__version__
+release = git-attic.__version__
 # The short X.Y version
 version = ".".join(release.split(".")[0:2])
 

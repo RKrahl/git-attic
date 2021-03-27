@@ -3,4 +3,4 @@
 /MANIFEST
 /build/
 /dist/
-/$distname/__init__.py
+/git-attic/__init__.py

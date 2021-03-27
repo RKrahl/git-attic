@@ -1,4 +1,4 @@
-$distname
+git-attic
 =========
 
 .. toctree::

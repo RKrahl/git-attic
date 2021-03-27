@@ -22,7 +22,7 @@ clean:
 
 distclean: clean
 	rm -f MANIFEST .version
-	rm -f $distname/__init__.py
+	rm -f git-attic/__init__.py
 	rm -rf dist
 	$(MAKE) -C doc distclean
 

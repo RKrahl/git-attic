@@ -1,6 +1,6 @@
 SPHINXOPTS    =
 SPHINXBUILD   = sphinx-build
-SPHINXPROJ    = $distname
+SPHINXPROJ    = git-attic
 SOURCEDIR     = src
 BUILDDIR      = .
 BUILDERS      = html dirhtml singlehtml htmlhelp qthelp devhelp epub	\
