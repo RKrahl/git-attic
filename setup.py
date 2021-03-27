@@ -1,7 +1,17 @@
-"""A skeleton for a Python package
+"""git-attic - git subcommand to manage retired references
 
-This package itself does nothing useful.  It is a skeleton of a Python
-package that may be used as a starting point to create a new package.
+Manage an archive of git references such as retired branches.  The
+package provides the `git attic` subcommand that may be used to move
+branches to the archive, to restore them, and to push and fetch the
+archive to and from remote repositories.
+
+The mechanism is to store references using a dedicated prefix that is
+ignored by other git commands.  As a result, the references in the
+archive are retained in the repository, but do not interfere with
+daily git workflows.  The idea has been borrowed from a `reply on
+Stack Overflow`__.
+
+.. __: https://stackoverflow.com/a/41008657
 """
 
 import distutils.command.build_py
@@ -93,13 +103,14 @@ setup(
     long_description = "\n".join(doclines[2:]),
     author = "Rolf Krahl",
     author_email = "rolf@rotkraut.de",
-    url = "https://github.com/RKrahl",
+    url = "https://github.com/RKrahl/git-attic",
     license = "Apache-2.0",
     requires = [],
     packages = ["git-attic"],
     classifiers = [
         "Development Status :: 1 - Planning",
-        # "Intended Audience :: ?",
+        "Environment :: Console",
+        "Intended Audience :: Developers",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
         "Programming Language :: Python",
@@ -108,7 +119,8 @@ setup(
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
-        # "Topic :: ?",
+        "Programming Language :: Python :: 3.9",
+        "Topic :: Software Development :: Version Control :: Git",
     ],
     cmdclass = {'build_py': build_py, 'sdist': sdist, 'init_py': init_py},
 )

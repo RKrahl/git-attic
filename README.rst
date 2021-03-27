@@ -1,13 +1,18 @@
-A skeleton for a Python package
-===============================
+git-attic - git subcommand to manage retired references
+=======================================================
 
-This repository provides a skeleton of a Python package.  It is useful
-as a starting point to create a new package.
+Manage an archive of git references such as retired branches.  The
+package provides the `git attic` subcommand that may be used to move
+branches to the archive, to restore them, and to push and fetch the
+archive to and from remote repositories.
 
-After using this template to create a new package, run the following
-command to adapt the package name::
+The mechanism is to store references using a dedicated prefix that is
+ignored by other git commands.  As a result, the references in the
+archive are retained in the repository, but do not interfere with
+daily git workflows.  The idea has been borrowed from a `reply on
+Stack Overflow`__.
 
-     $ python3 init.py <name>
+.. __: https://stackoverflow.com/a/41008657
 
 
 System requirements
@@ -16,6 +21,10 @@ System requirements
 Python:
 
 + Python 3.4 or newer.
+
+External Programs:
+
++ `git`_.
 
 Required library packages:
 
@@ -43,7 +52,7 @@ Optional library packages:
 Copyright and License
 ---------------------
 
-Copyright 2019–2020 Rolf Krahl
+Copyright 2021 Rolf Krahl
 
 Licensed under the `Apache License`_, Version 2.0 (the "License"); you
 may not use this file except in compliance with the License.
@@ -55,6 +64,7 @@ implied.  See the License for the specific language governing
 permissions and limitations under the License.
 
 
+.. _git: https://git-scm.com/
 .. _setuptools_scm: https://github.com/pypa/setuptools_scm/
 .. _pytest: https://pytest.org/
 .. _distutils-pytest: https://github.com/RKrahl/distutils-pytest

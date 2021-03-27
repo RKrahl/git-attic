@@ -12,7 +12,7 @@ import git-attic
 # -- Project information -----------------------------------------------------
 
 project = 'git-attic'
-copyright = '2020, Rolf Krahl'
+copyright = '2021, Rolf Krahl'
 author = 'Rolf Krahl'
 
 # The full version, including alpha/beta/rc tags
