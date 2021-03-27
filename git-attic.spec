@@ -1,19 +1,21 @@
 %bcond_with tests
-%global distname git-attic
 
-Name:		python3-%{distname}
+%define gitexecdir %{_prefix}/lib/git
+
+Name:		git-attic
 Version:	$version
 Release:	0
 Url:		$url
 Summary:	$description
 License:	Apache-2.0
-Group:		Development/Libraries/Python
-Source:		%{distname}-%{version}.tar.gz
+Group:		Development/Tools/Version Control
+Source:		%{name}-%{version}.tar.gz
 BuildRequires:	python3-base >= 3.4
 %if %{with tests}
 BuildRequires:	python3-distutils-pytest
 BuildRequires:	python3-pytest >= 3.0
 %endif
+Requires:	git
 BuildArch:	noarch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
@@ -22,7 +24,7 @@ $long_description
 
 
 %prep
-%setup -q -n %{distname}-%{version}
+%setup -q
 
 
 %build
@@ -30,7 +32,11 @@ python3 setup.py build
 
 
 %install
-python3 setup.py install --optimize=1 --prefix=%{_prefix} --root=%{buildroot}
+python3 setup.py install \
+	--prefix=%{_prefix} \
+	--root=%{buildroot} \
+	--install-scripts=%{gitexecdir}
+%__mv %{buildroot}%{gitexecdir}/git-attic.py %{buildroot}%{gitexecdir}/git-attic
 
 
 %if %{with tests}
@@ -42,7 +48,9 @@ python3 setup.py test
 %files
 %defattr(-,root,root)
 %doc README.rst CHANGES.rst
-%{python3_sitelib}/*
+%license LICENSE.txt
+%{gitexecdir}/*
+%exclude %{python3_sitelib}/*.egg-info
 
 
 %changelog

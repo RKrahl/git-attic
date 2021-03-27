@@ -1,5 +1,4 @@
 PYTHON   = python3
-BUILDLIB = $(CURDIR)/build/lib
 
 
 build:
@@ -11,23 +10,20 @@ test:
 sdist:
 	$(PYTHON) setup.py sdist
 
-doc-html: build
-	$(MAKE) -C doc html PYTHONPATH=$(BUILDLIB)
-
-doc-pdf: build
-	$(MAKE) -C doc latexpdf PYTHONPATH=$(BUILDLIB)
+doc-html: meta
+	$(MAKE) -C doc html PYTHONPATH=$(CURDIR)
 
 clean:
 	rm -rf build
+	rm -rf __pycache__
 
 distclean: clean
-	rm -f MANIFEST .version
-	rm -f git-attic/__init__.py
+	rm -f MANIFEST _meta.py
 	rm -rf dist
 	$(MAKE) -C doc distclean
 
-init_py:
-	$(PYTHON) setup.py init_py
+meta:
+	$(PYTHON) setup.py meta
 
 
-.PHONY: build test sdist doc-html doc-pdf clean distclean init_py
+.PHONY: build test sdist doc-html doc-pdf clean distclean meta

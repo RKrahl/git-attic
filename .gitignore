@@ -1,6 +1,6 @@
+__pycache__/
 /.env
-/.version
 /MANIFEST
+/_meta.py
 /build/
 /dist/
-/git-attic/__init__.py
