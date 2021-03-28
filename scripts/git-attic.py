@@ -2,6 +2,7 @@
 
 import argparse
 import subprocess
+import sys
 
 
 def listrefs(args):
@@ -47,4 +48,8 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except subprocess.CalledProcessError as e:
+        print(e.stderr, end='', file=sys.stderr)
+        sys.exit(e.returncode)
