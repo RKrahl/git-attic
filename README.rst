@@ -1,5 +1,5 @@
-git-attic - git subcommand to manage retired references
-=======================================================
+git subcommand to manage retired references
+===========================================
 
 Manage an archive of git references such as retired branches.  The
 package provides the `git attic` subcommand that may be used to move
