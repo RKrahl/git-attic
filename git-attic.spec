@@ -16,6 +16,7 @@ BuildRequires:	python3-distutils-pytest
 BuildRequires:	python3-pytest >= 3.0
 %endif
 Requires:	git
+Recommends:	man
 BuildArch:	noarch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build
 
@@ -38,6 +39,9 @@ python3 setup.py install \
 	--install-scripts=%{gitexecdir}
 %__mv %{buildroot}%{gitexecdir}/git-attic.py %{buildroot}%{gitexecdir}/git-attic
 
+%__install -d -m 755 %{buildroot}%{_mandir}/man1
+%__cp -p doc/man/*.1 %{buildroot}%{_mandir}/man1
+
 
 %if %{with tests}
 %check
@@ -51,6 +55,7 @@ python3 setup.py test
 %license LICENSE.txt
 %{gitexecdir}/*
 %exclude %{python3_sitelib}/*.egg-info
+%{_mandir}/man1/*
 
 
 %changelog

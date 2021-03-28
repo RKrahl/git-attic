@@ -19,6 +19,7 @@ Stack Overflow`__.
    :maxdepth: 2
    :caption: Contents:
 
+   man-git-attic
    changelog
 
 

@@ -3,5 +3,6 @@ include LICENSE.txt
 include MANIFEST.in
 include README.rst
 include _meta.py
+include doc/man/*
 include tests/pytest.ini
 include tests/test_*.py

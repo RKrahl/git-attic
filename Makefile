@@ -7,11 +7,14 @@ build:
 test:
 	$(PYTHON) setup.py test
 
-sdist:
+sdist: doc-man
 	$(PYTHON) setup.py sdist
 
 doc-html: meta
 	$(MAKE) -C doc html PYTHONPATH=$(CURDIR)
+
+doc-man: meta
+	$(MAKE) -C doc man PYTHONPATH=$(CURDIR)
 
 clean:
 	rm -rf build
