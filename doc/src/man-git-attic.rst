@@ -5,7 +5,7 @@ git-attic
 Synopsis
 ~~~~~~~~
 
-- *git attic* [--prefix <prefix>] [list] [-v]
+- *git attic* [--prefix <prefix>] [-v] [list]
 - *git attic* [--prefix <prefix>] stash <branch> [<archivename>]
 - *git attic* [--prefix <prefix>] restore <archivename> [<branch>]
 - *git attic* [--prefix <prefix>] push <remote>
@@ -25,7 +25,7 @@ Commands
 
 .. program:: git-attic
 
-.. option:: list [-v]
+.. option:: list
 
     List references in the archive.
 
@@ -66,7 +66,7 @@ Options
 .. option:: -v
 
     When used with list, show sha1 and commit subject line for each
-    head.
+    reference.
 
 
 See also

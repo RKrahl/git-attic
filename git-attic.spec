@@ -10,7 +10,7 @@ Summary:	$description
 License:	Apache-2.0
 Group:		Development/Tools/Version Control
 Source:		%{name}-%{version}.tar.gz
-BuildRequires:	python3-base >= 3.4
+BuildRequires:	python3-base >= 3.5
 %if %{with tests}
 BuildRequires:	python3-distutils-pytest
 BuildRequires:	python3-pytest >= 3.0
