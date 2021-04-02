@@ -49,6 +49,24 @@ def restore(args):
     _rungit(('git', 'branch', branch, archref))
 
 
+def push(args):
+    refspec = 'refs/%s/*:refs/%s/*' % (args.prefix, args.prefix)
+    remote = args.remote
+    if args.verbose:
+        _rungit(('git', 'push', '-v', remote, refspec))
+    else:
+        _rungit(('git', 'push', remote, refspec))
+
+
+def fetch(args):
+    refspec = 'refs/%s/*:refs/%s/*' % (args.prefix, args.prefix)
+    remote = args.remote
+    if args.verbose:
+        _rungit(('git', 'fetch', '-v', remote, refspec))
+    else:
+        _rungit(('git', 'fetch', remote, refspec))
+
+
 def main():
     description = "Manage an archive of retired references"
     argparser = argparse.ArgumentParser(description=description)
@@ -68,6 +86,14 @@ def main():
     restoreparser.add_argument('archivename')
     restoreparser.add_argument('branch', nargs='?')
     restoreparser.set_defaults(func=restore)
+    pushparser = subparsers.add_parser('push', help="push archive to "
+                                       "remote repository")
+    pushparser.add_argument('remote')
+    pushparser.set_defaults(func=push)
+    fetchparser = subparsers.add_parser('fetch', help="fetch archive from "
+                                        "remote repository")
+    fetchparser.add_argument('remote')
+    fetchparser.set_defaults(func=fetch)
     args = argparser.parse_args()
     getattr(args, 'func', listrefs)(args)
 
