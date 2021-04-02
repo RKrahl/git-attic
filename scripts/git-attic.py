@@ -5,16 +5,18 @@ import subprocess
 import sys
 
 
+def _rungit(cmd):
+    kwargs = dict(stdout=subprocess.PIPE, stderr=subprocess.PIPE,
+                  check=True, universal_newlines=True)
+    return subprocess.run(cmd, **kwargs)
+
 def listrefs(args):
     prefix = 'refs/%s/' % args.prefix
     if args.verbose:
         f_arg = '--format=%(refname) %(objectname:short) %(contents:subject)'
     else:
         f_arg = '--format=%(refname)'
-    cmd = ('git', 'for-each-ref', f_arg, prefix)
-    proc = subprocess.run(cmd,
-                          stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                          check=True, universal_newlines=True)
+    proc = _rungit(('git', 'for-each-ref', f_arg, prefix))
     reflines = proc.stdout.splitlines()
     if args.verbose:
         maxlen = 0
