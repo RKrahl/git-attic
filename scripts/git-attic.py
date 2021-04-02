@@ -36,6 +36,19 @@ def listrefs(args):
             print(l[len(prefix):])
 
 
+def stash(args):
+    branch = args.branch
+    archref = 'refs/%s/%s' % (args.prefix, args.archivename or args.branch)
+    _rungit(('git', 'update-ref', archref, branch, ""))
+    _rungit(('git', 'branch', '-D', branch))
+
+
+def restore(args):
+    branch = args.branch or args.archivename
+    archref = 'refs/%s/%s' % (args.prefix, args.archivename)
+    _rungit(('git', 'branch', branch, archref))
+
+
 def main():
     description = "Manage an archive of retired references"
     argparser = argparse.ArgumentParser(description=description)
@@ -45,6 +58,16 @@ def main():
     subparsers = argparser.add_subparsers(title='subcommands', dest='subcmd')
     listparser = subparsers.add_parser('list', help="list references")
     listparser.set_defaults(func=listrefs)
+    stashparser = subparsers.add_parser('stash', help="move a branch "
+                                        "to the archive")
+    stashparser.add_argument('branch')
+    stashparser.add_argument('archivename', nargs='?')
+    stashparser.set_defaults(func=stash)
+    restoreparser = subparsers.add_parser('restore', help="restore a branch "
+                                          "from the archive")
+    restoreparser.add_argument('archivename')
+    restoreparser.add_argument('branch', nargs='?')
+    restoreparser.set_defaults(func=restore)
     args = argparser.parse_args()
     getattr(args, 'func', listrefs)(args)
 
