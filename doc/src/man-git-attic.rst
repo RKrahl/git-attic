@@ -38,7 +38,7 @@ Commands
 
 .. option:: restore <archivename> [<branch>]
 
-    Restore a branch from tha archive.  Create a branch `<branch` and
+    Restore a branch from the archive.  Create a branch `<branch` and
     set its head to the reference `<archivename>` in the archive.  If
     the `<branch>` argument is ommitted, `<archivename>` will be used
     for the name of the new branch.
