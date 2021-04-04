@@ -26,12 +26,48 @@ def gitrepo(tmp_path):
         pytest.skip(str(err))
     return tmp_path / "repo"
 
+# The branches present in the test git repo
+_test_branches = {
+    'hawaii':   ('hawaii',     '94ef0ab',   'Esst mehr Obst!'),
+    'marinara': ('marinara',   'fa5b55e',   'Jetzt neu: Marinara'),
+    'master':   ('master',     '455d80c',   'Zubereitung'),
+}
+def get_test_branches(names='*'):
+    """Get a selection of the branches present in the test data.
+    """
+    if names == '*':
+        return set(_test_branches.values())
+    else:
+        return { _test_branches[n] for n in names }
+
+
 def run_cmd(cmd):
+    """Run a command, capturing the output.
+
+    Note: with Python 3.7 we could simplify this using
+    (check=True, capture_output=True, text=True).
+    """
     return subprocess.run(cmd,
                           stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                           check=True, universal_newlines=True)
 
 def git_attic(args):
+    """Call the git-attic script.
+    """
     script = scriptdir / "git-attic.py"
     cmd = [sys.executable, str(script)] + list(args)
     return run_cmd(cmd)
+
+def git_branches():
+    """Call git branch to get the branches from the current repository.
+    """
+    cmd = ('git', 'branch',
+           '--format=%(refname:lstrip=2) %(objectname:short) '
+           '%(contents:subject)')
+    return run_cmd(cmd)
+
+def assert_refs(proc, refs):
+    """Assert that the stdout of proc is a given list of refs.
+    """
+    outrefs = { tuple(l.split(maxsplit=2)) for l in proc.stdout.splitlines() }
+    assert outrefs == set(refs)
