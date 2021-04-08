@@ -38,7 +38,13 @@ def get_test_branches(names='*'):
     if names == '*':
         return set(_test_branches.values())
     else:
-        return { _test_branches[n] for n in names }
+        refs = set()
+        for n in names:
+            if isinstance(n, str):
+                refs.add(_test_branches[n])
+            else:
+                refs.add((n[1],) + _test_branches[n[0]][1:])
+        return refs
 
 
 def run_cmd(cmd):
