@@ -67,9 +67,8 @@ def git_attic(args):
 def git_branches():
     """Call git branch to get the branches from the current repository.
     """
-    cmd = ('git', 'branch',
-           '--format=%(refname:lstrip=2) %(objectname:short) '
-           '%(contents:subject)')
+    fmt = '%(refname:lstrip=2) %(objectname:short) %(contents:subject)'
+    cmd = ('git', 'branch', '--format=%s' % fmt)
     return run_cmd(cmd)
 
 def assert_refs(proc, refs):
