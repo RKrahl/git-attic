@@ -53,9 +53,12 @@ def run_cmd(cmd):
     Note: with Python 3.7 we could simplify this using
     (check=True, capture_output=True, text=True).
     """
-    return subprocess.run(cmd,
+    print("\n>", *cmd)
+    proc = subprocess.run(cmd,
                           stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                           check=True, universal_newlines=True)
+    print(proc.stdout, end="")
+    return proc
 
 def git_attic(args):
     """Call the git-attic script.
