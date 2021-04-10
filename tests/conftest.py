@@ -14,9 +14,11 @@ except KeyError:
 
 __all__ = [
     'assert_refs',
+    'clone_repo',
     'get_test_branches',
     'git_attic',
     'git_branches',
+    'run_cmd',
 ]
 
 def gettestdata(fname):
@@ -24,14 +26,6 @@ def gettestdata(fname):
     assert fname.is_file()
     return fname
 
-@pytest.fixture(scope="function")
-def gitrepo(tmp_path):
-    try:
-        with tarfile.open(str(gettestdata("repo.tar.xz"))) as tar:
-            tar.extractall(path=str(tmp_path))
-    except tarfile.CompressionError as err:
-        pytest.skip(str(err))
-    return tmp_path / "repo"
 
 # The branches present in the test git repo
 _test_branches = {
@@ -86,3 +80,19 @@ def assert_refs(proc, refs):
     """
     outrefs = { tuple(l.split(maxsplit=2)) for l in proc.stdout.splitlines() }
     assert outrefs == set(refs)
+
+
+@pytest.fixture(scope="function")
+def gitrepo(tmp_path):
+    try:
+        with tarfile.open(str(gettestdata("repo.tar.xz"))) as tar:
+            tar.extractall(path=str(tmp_path))
+    except tarfile.CompressionError as err:
+        pytest.skip(str(err))
+    return tmp_path / "repo"
+
+def clone_repo(repo, name="clone"):
+    clone_path = repo.parent / name
+    cmd = ('git', 'clone', str(repo), str(clone_path))
+    run_cmd(cmd)
+    return clone_path
