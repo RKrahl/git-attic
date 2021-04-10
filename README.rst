@@ -1,3 +1,9 @@
+|travis|
+
+.. |travis| image:: https://img.shields.io/travis/com/RKrahl/git-attic
+   :target: https://travis-ci.com/RKrahl/git-attic
+   :alt: Travis build status
+
 git subcommand to manage retired references
 ===========================================
 
