@@ -12,6 +12,13 @@ except KeyError:
     raise RuntimeError("script directory not set, "
                        "please use 'setup.py test'") from None
 
+__all__ = [
+    'assert_refs',
+    'get_test_branches',
+    'git_attic',
+    'git_branches',
+]
+
 def gettestdata(fname):
     fname = testdir / "data" / fname
     assert fname.is_file()

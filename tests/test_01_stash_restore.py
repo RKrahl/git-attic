@@ -2,7 +2,7 @@
 """
 
 import pytest
-from conftest import get_test_branches, git_attic, git_branches, assert_refs
+from conftest import *
 
 def test_stash_and_restore_simple(monkeypatch, gitrepo):
     """Stash and restore in the most simple case.
