@@ -13,27 +13,22 @@ def _rungit(cmd):
 def listrefs(args):
     prefix = 'refs/%s/' % args.prefix
     if args.verbose:
-        f_arg = '--format=%(refname) %(objectname:short) %(contents:subject)'
+        fmt = '%(refname:lstrip=2) %(objectname:short) %(contents:subject)'
     else:
-        f_arg = '--format=%(refname)'
-    proc = _rungit(('git', 'for-each-ref', f_arg, prefix))
-    reflines = proc.stdout.splitlines()
+        fmt = '%(refname:lstrip=2)'
+    proc = _rungit(('git', 'for-each-ref', '--format=%s' % fmt, prefix))
     if args.verbose:
         maxlen = 0
         reftuples = []
-        for l in reflines:
+        for l in proc.stdout.splitlines():
             r, c, s = l.split(' ', maxsplit=2)
-            assert r.startswith(prefix)
-            r = r[len(prefix):]
             maxlen = max(maxlen, len(r))
             reftuples.append((r, c, s))
         f = "%%-%ds   %%s   %%s" % maxlen
         for t in reftuples:
             print(f % t)
     else:
-        for l in reflines:
-            assert l.startswith(prefix)
-            print(l[len(prefix):])
+        print(proc.stdout, end="")
 
 
 def stash(args):
