@@ -1,4 +1,4 @@
-%bcond_with tests
+%bcond_without tests
 
 %define gitexecdir %{_prefix}/lib/git
 
@@ -11,9 +11,10 @@ License:	Apache-2.0
 Group:		Development/Tools/Version Control
 Source:		%{name}-%{version}.tar.gz
 BuildRequires:	python3-base >= 3.5
+BuildRequires:	git-core
 %if %{with tests}
 BuildRequires:	python3-distutils-pytest
-BuildRequires:	python3-pytest >= 3.0
+BuildRequires:	python3-pytest >= 3.9
 %endif
 Requires:	git
 Recommends:	man
