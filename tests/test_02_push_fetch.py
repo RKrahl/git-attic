@@ -12,10 +12,10 @@ def test_fetch_simple(monkeypatch, gitrepo):
     git_attic(("stash", "marinara"))
 
     monkeypatch.chdir(clone_repo(gitrepo))
-    assert_refs(git_attic(("-v", "list")), ())
+    assert_refs(git_attic(("list", "-v")), ())
     assert_refs(git_branches(), get_test_branches(("master",)))
     git_attic(("fetch", "origin"))
-    assert_refs(git_attic(("-v", "list")),
+    assert_refs(git_attic(("list", "-v")),
                 get_test_branches(("hawaii", "marinara")))
 
 def test_fetch_prefix(monkeypatch, gitrepo):
@@ -26,23 +26,23 @@ def test_fetch_prefix(monkeypatch, gitrepo):
     git_attic(("--prefix", "archive", "stash", "marinara"))
 
     monkeypatch.chdir(clone_repo(gitrepo))
-    assert_refs(git_attic(("-v", "list")), ())
+    assert_refs(git_attic(("list", "-v")), ())
     assert_refs(git_branches(), get_test_branches(("master",)))
     git_attic(("fetch", "origin"))
-    assert_refs(git_attic(("-v", "list")),
+    assert_refs(git_attic(("list", "-v")),
                 get_test_branches(("hawaii",)))
-    assert_refs(git_attic(("--prefix", "archive", "-v", "list")), ())
+    assert_refs(git_attic(("--prefix", "archive", "list", "-v")), ())
     git_attic(("--prefix", "archive", "fetch", "origin"))
-    assert_refs(git_attic(("-v", "list")),
+    assert_refs(git_attic(("list", "-v")),
                 get_test_branches(("hawaii",)))
-    assert_refs(git_attic(("--prefix", "archive", "-v", "list")),
+    assert_refs(git_attic(("--prefix", "archive", "list", "-v")),
                 get_test_branches(("marinara",)))
 
 def test_push_simple(monkeypatch, gitrepo):
     """Push the attic refs in the most simple case.
     """
     monkeypatch.chdir(gitrepo)
-    assert_refs(git_attic(("-v", "list")), ())
+    assert_refs(git_attic(("list", "-v")), ())
 
     monkeypatch.chdir(clone_repo(gitrepo))
     cmd = ('git', 'branch', 'hawaii', '--track', 'origin/hawaii')
@@ -51,20 +51,20 @@ def test_push_simple(monkeypatch, gitrepo):
     run_cmd(cmd)
     git_attic(("stash", "hawaii"))
     git_attic(("stash", "marinara"))
-    assert_refs(git_attic(("-v", "list")),
+    assert_refs(git_attic(("list", "-v")),
                 get_test_branches(("hawaii", "marinara")))
     assert_refs(git_branches(), get_test_branches(("master",)))
     git_attic(("push", "origin"))
 
     monkeypatch.chdir(gitrepo)
-    assert_refs(git_attic(("-v", "list")),
+    assert_refs(git_attic(("list", "-v")),
                 get_test_branches(("hawaii", "marinara")))
 
 def test_push_prefix(monkeypatch, gitrepo):
     """Push with an alternative prefix.
     """
     monkeypatch.chdir(gitrepo)
-    assert_refs(git_attic(("-v", "list")), ())
+    assert_refs(git_attic(("list", "-v")), ())
 
     clone = clone_repo(gitrepo)
     monkeypatch.chdir(clone)
@@ -74,23 +74,23 @@ def test_push_prefix(monkeypatch, gitrepo):
     run_cmd(cmd)
     git_attic(("stash", "hawaii"))
     git_attic(("--prefix", "archive", "stash", "marinara"))
-    assert_refs(git_attic(("-v", "list")),
+    assert_refs(git_attic(("list", "-v")),
                 get_test_branches(("hawaii",)))
-    assert_refs(git_attic(("--prefix", "archive", "-v", "list")),
+    assert_refs(git_attic(("--prefix", "archive", "list", "-v")),
                 get_test_branches(("marinara",)))
     assert_refs(git_branches(), get_test_branches(("master",)))
     git_attic(("push", "origin"))
 
     monkeypatch.chdir(gitrepo)
-    assert_refs(git_attic(("-v", "list")),
+    assert_refs(git_attic(("list", "-v")),
                 get_test_branches(("hawaii",)))
-    assert_refs(git_attic(("--prefix", "archive", "-v", "list")), ())
+    assert_refs(git_attic(("--prefix", "archive", "list", "-v")), ())
 
     monkeypatch.chdir(clone)
     git_attic(("--prefix", "archive", "push", "origin"))
 
     monkeypatch.chdir(gitrepo)
-    assert_refs(git_attic(("-v", "list")),
+    assert_refs(git_attic(("list", "-v")),
                 get_test_branches(("hawaii",)))
-    assert_refs(git_attic(("--prefix", "archive", "-v", "list")),
+    assert_refs(git_attic(("--prefix", "archive", "list", "-v")),
                 get_test_branches(("marinara",)))

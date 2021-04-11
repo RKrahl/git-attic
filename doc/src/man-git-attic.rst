@@ -5,7 +5,7 @@ git-attic
 Synopsis
 ~~~~~~~~
 
-- *git attic* [--prefix <prefix>] [-v] [list]
+- *git attic* [--prefix <prefix>] [list [-v]]
 - *git attic* [--prefix <prefix>] stash <branch> [<archivename>]
 - *git attic* [--prefix <prefix>] restore <archivename> [<branch>]
 - *git attic* [--prefix <prefix>] push <remote>

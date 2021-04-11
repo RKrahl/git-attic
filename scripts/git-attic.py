@@ -47,29 +47,23 @@ def restore(args):
 def push(args):
     refspec = 'refs/%s/*:refs/%s/*' % (args.prefix, args.prefix)
     remote = args.remote
-    if args.verbose:
-        _rungit(('git', 'push', '-v', remote, refspec))
-    else:
-        _rungit(('git', 'push', remote, refspec))
+    _rungit(('git', 'push', remote, refspec))
 
 
 def fetch(args):
     refspec = 'refs/%s/*:refs/%s/*' % (args.prefix, args.prefix)
     remote = args.remote
-    if args.verbose:
-        _rungit(('git', 'fetch', '-v', remote, refspec))
-    else:
-        _rungit(('git', 'fetch', remote, refspec))
+    _rungit(('git', 'fetch', remote, refspec))
 
 
 def main():
     description = "Manage an archive of retired references"
     argparser = argparse.ArgumentParser(description=description)
     argparser.add_argument('--prefix', default="attic", help="archive prefix")
-    argparser.add_argument('-v', action='store_true', dest='verbose',
-                           help="verbose list")
     subparsers = argparser.add_subparsers(title='subcommands', dest='subcmd')
     listparser = subparsers.add_parser('list', help="list references")
+    listparser.add_argument('-v', action='store_true', dest='verbose',
+                            help="verbose list")
     listparser.set_defaults(func=listrefs)
     stashparser = subparsers.add_parser('stash', help="move a branch "
                                         "to the archive")
@@ -90,7 +84,12 @@ def main():
     fetchparser.add_argument('remote')
     fetchparser.set_defaults(func=fetch)
     args = argparser.parse_args()
-    getattr(args, 'func', listrefs)(args)
+    try:
+        func = args.func
+    except AttributeError:
+        func = listrefs
+        args.verbose = None
+    func(args)
 
 
 if __name__ == "__main__":
