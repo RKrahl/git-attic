@@ -1,8 +1,8 @@
-|travis|
+|gh-test|
 
-.. |travis| image:: https://img.shields.io/travis/com/RKrahl/git-attic
-   :target: https://travis-ci.com/RKrahl/git-attic
-   :alt: Travis build status
+.. |gh-test| image:: https://img.shields.io/github/workflow/status/RKrahl/git-attic/Run%20Test
+   :target: https://github.com/RKrahl/git-attic/actions/workflows/run-tests.yaml
+   :alt: GitHub Workflow Status
 
 git subcommand to manage retired references
 ===========================================
