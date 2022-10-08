@@ -10,6 +10,10 @@ def _rungit(cmd):
                   check=True, universal_newlines=True)
     return subprocess.run(cmd, **kwargs)
 
+def config_get_prefix():
+    proc = _rungit("git config --default attic --get attic.prefix".split())
+    return proc.stdout.strip()
+
 def listrefs(args):
     prefix = 'refs/%s/' % args.prefix
     if args.verbose:
@@ -59,7 +63,8 @@ def fetch(args):
 def main():
     description = "Manage an archive of retired references"
     argparser = argparse.ArgumentParser(description=description)
-    argparser.add_argument('--prefix', default="attic", help="archive prefix")
+    argparser.add_argument('--prefix', default=config_get_prefix(),
+                           help="archive prefix")
     subparsers = argparser.add_subparsers(title='subcommands', dest='subcmd')
     listparser = subparsers.add_parser('list', help="list references")
     listparser.add_argument('-v', action='store_true', dest='verbose',
