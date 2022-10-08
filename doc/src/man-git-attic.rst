@@ -69,6 +69,16 @@ Options
     reference.
 
 
+Configuration variables
+~~~~~~~~~~~~~~~~~~~~~~~
+
+The following git configuration settings can be used to modify
+**git attic** behavior.
+
+attic.prefix
+    Set the default prefix for the references in the archive.
+
+
 See also
 ~~~~~~~~
 
