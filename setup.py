@@ -14,11 +14,10 @@ Stack Overflow`__.
 .. __: https://stackoverflow.com/a/41008657
 """
 
-import distutils.cmd
-import distutils.command.build_py
+import setuptools
+from setuptools import setup
 import distutils.command.sdist
-from distutils.core import setup
-import distutils.log
+from distutils import log
 from glob import glob
 from pathlib import Path
 import string
@@ -35,34 +34,33 @@ except (ImportError, LookupError):
         import _meta
         version = _meta.__version__
     except ImportError:
-        distutils.log.warn("warning: cannot determine version number")
+        log.warn("warning: cannot determine version number")
         version = "UNKNOWN"
 
-doclines = __doc__.strip().split("\n")
+docstring = __doc__
 
 
-class meta(distutils.cmd.Command):
-
-    description = "generate a _meta.py file"
+class meta(setuptools.Command):
+    description = "generate meta files"
     user_options = []
     meta_template = '''
 __version__ = "%(version)s"
 '''
-
     def initialize_options(self):
         pass
-
     def finalize_options(self):
         pass
-
     def run(self):
         values = {
             'version': self.distribution.get_version(),
+            'doc': docstring
         }
-        with open("_meta.py", "wt") as f:
+        with Path("_meta.py").open("wt") as f:
             print(self.meta_template % values, file=f)
 
-
+# Note: Do not use setuptools for making the source distribution,
+# rather use the good old distutils instead.
+# Rationale: https://rhodesmill.org/brandon/2009/eby-magic/
 class sdist(distutils.command.sdist.sdist):
     def run(self):
         self.run_command('meta')
@@ -70,8 +68,8 @@ class sdist(distutils.command.sdist.sdist):
         subst = {
             "version": self.distribution.get_version(),
             "url": self.distribution.get_url(),
-            "description": self.distribution.get_description(),
-            "long_description": self.distribution.get_long_description(),
+            "description": docstring.split("\n")[0],
+            "long_description": docstring.split("\n", maxsplit=2)[2].strip(),
         }
         for spec in glob("*.spec"):
             with Path(spec).open('rt') as inf:
@@ -79,17 +77,18 @@ class sdist(distutils.command.sdist.sdist):
                     outf.write(string.Template(inf.read()).substitute(subst))
 
 
+with Path("README.rst").open("rt", encoding="utf8") as f:
+    readme = f.read()
+
 setup(
     name = "git-attic",
     version = version,
-    description = doclines[0],
-    long_description = "\n".join(doclines[2:]),
+    description = docstring.split("\n")[0],
+    long_description = readme,
+    url = "https://github.com/RKrahl/git-attic",
     author = "Rolf Krahl",
     author_email = "rolf@rotkraut.de",
-    url = "https://github.com/RKrahl/git-attic",
     license = "Apache-2.0",
-    requires = [],
-    scripts = ["scripts/git-attic.py"],
     classifiers = [
         "Development Status :: 3 - Alpha",
         "Environment :: Console",
@@ -106,6 +105,10 @@ setup(
         "Programming Language :: Python :: 3.11",
         "Topic :: Software Development :: Version Control :: Git",
     ],
-    cmdclass = dict(cmdclass, meta=meta, sdist=sdist),
+    python_requires = ">=3.5",
+    install_requires = [],
+    packages = [],
+    py_modules = [],
+    scripts = ["scripts/git-attic.py"],
+    cmdclass = dict(cmdclass, sdist=sdist, meta=meta),
 )
-
