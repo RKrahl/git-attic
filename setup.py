@@ -90,7 +90,7 @@ setup(
     author_email = "rolf@rotkraut.de",
     license = "Apache-2.0",
     classifiers = [
-        "Development Status :: 3 - Alpha",
+        "Development Status :: 4 - Beta",
         "Environment :: Console",
         "Intended Audience :: Developers",
         "License :: OSI Approved :: Apache Software License",

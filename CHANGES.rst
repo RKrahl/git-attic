@@ -2,8 +2,8 @@ Changelog
 =========
 
 
-0.2 (not yet released)
-~~~~~~~~~~~~~~~~~~~~~~
+0.2 (2022-10-09)
+~~~~~~~~~~~~~~~~
 
 New features
 ------------
@@ -12,6 +12,11 @@ New features
 
 .. _#2: https://github.com/RKrahl/git-attic/issues/2
 .. _#5: https://github.com/RKrahl/git-attic/pull/5
+
+Minor changes
+-------------
+
++ review build tool chain.
 
 
 0.1 (2021-04-11)

@@ -26,15 +26,15 @@ System requirements
 
 Python:
 
-+ Python 3.5 or newer.
++ Python 3.5 or newer
 
 External Programs:
 
-+ `git`_.
++ `git`_
 
 Required library packages:
 
-+ None
++ `setuptools`_
 
 Optional library packages:
 
@@ -58,7 +58,7 @@ Optional library packages:
 Copyright and License
 ---------------------
 
-Copyright 2021 Rolf Krahl
+Copyright 2021–2022 Rolf Krahl
 
 Licensed under the `Apache License`_, Version 2.0 (the "License"); you
 may not use this file except in compliance with the License.
@@ -71,6 +71,7 @@ permissions and limitations under the License.
 
 
 .. _git: https://git-scm.com/
+.. _setuptools: https://github.com/pypa/setuptools/
 .. _setuptools_scm: https://github.com/pypa/setuptools_scm/
 .. _pytest: https://pytest.org/
 .. _distutils-pytest: https://github.com/RKrahl/distutils-pytest
