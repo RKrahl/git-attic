@@ -11,6 +11,7 @@ License:	Apache-2.0
 Group:		Development/Tools/Version Control
 Source:		%{name}-%{version}.tar.gz
 BuildRequires:	python3-base >= 3.5
+BuildRequires:	python3-setuptools
 BuildRequires:	git-core >= 2.18.0
 %if %{with tests}
 BuildRequires:	python3-distutils-pytest
