@@ -11,12 +11,12 @@ License:	Apache-2.0
 Group:		Development/Tools/Version Control
 Source:		%{name}-%{version}.tar.gz
 BuildRequires:	python3-base >= 3.5
-BuildRequires:	git-core
+BuildRequires:	git-core >= 2.18.0
 %if %{with tests}
 BuildRequires:	python3-distutils-pytest
 BuildRequires:	python3-pytest >= 3.9
 %endif
-Requires:	git
+Requires:	git >= 2.18.0
 Recommends:	man
 BuildArch:	noarch
 BuildRoot:	%{_tmppath}/%{name}-%{version}-build

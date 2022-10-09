@@ -30,7 +30,7 @@ Python:
 
 External Programs:
 
-+ `git`_
++ `git`_ >= 2.18
 
 Required library packages:
 

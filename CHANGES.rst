@@ -8,10 +8,15 @@ Changelog
 New features
 ------------
 
-+ `#2`_, `#5`_: get the default prefix from git configuration
++ `#2`_, `#5`_: get the default prefix from git configuration.
 
 .. _#2: https://github.com/RKrahl/git-attic/issues/2
 .. _#5: https://github.com/RKrahl/git-attic/pull/5
+
+Incompatible changes
+--------------------
+
++ Require git version 2.18 or newer.
 
 Minor changes
 -------------
