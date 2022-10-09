@@ -1,5 +1,3 @@
 distutils-pytest
 pytest >=3.9.0
-pytest-dependency >=0.2
-python-dateutil
 setuptools_scm
