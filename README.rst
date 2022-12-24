@@ -1,6 +1,6 @@
 |gh-test|
 
-.. |gh-test| image:: https://img.shields.io/github/workflow/status/RKrahl/git-attic/Run%20Test
+.. |gh-test| image:: https://img.shields.io/github/actions/workflow/status/RKrahl/git-attic/run-tests.yaml?branch=master
    :target: https://github.com/RKrahl/git-attic/actions/workflows/run-tests.yaml
    :alt: GitHub Workflow Status
 
